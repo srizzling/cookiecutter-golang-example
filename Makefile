@@ -34,13 +34,14 @@ windows:
 build-all: linux darwin windows
 
 build: clean vendor
-	@mkdir -p build && go build -o build/$(BINARY)
+	@mkdir -p build && go build -mod vendor -o build/$(BINARY)
 
 run: build
 	./build/$(BINARY)
 
-lint:
-	@docker run --rm -v $(pwd):/app -w /app golangci/golangci-lint:v1.35.2 golangci-lint run
+lint: ## Use golintci-lint on your project
+	$(eval OUTPUT_OPTIONS = $(shell [ "${EXPORT_RESULT}" == "true" ] && echo "--out-format checkstyle ./... | tee /dev/tty > checkstyle-report.xml" || echo "" ))
+	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint run --deadline=65s $(OUTPUT_OPTIONS)
 
 .PHONY: test
 test:
