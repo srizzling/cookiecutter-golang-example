@@ -9,13 +9,6 @@
 
   <p align="center">
     A Golang project.
-    <br />
-    <a href="https://github.com/srizzling/mygolangproject"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    ·
-    <a href="https://github.com//srizzling/mygolangproject"/issues">Report Bug</a>
-    ·
     <a href="https://github.com/srizzling/mygolangproject/issues">Request Feature</a>
   </p>
 </p>
@@ -23,8 +16,6 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 ### Built With
 
