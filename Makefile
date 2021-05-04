@@ -44,7 +44,7 @@ lint: ## Use golintci-lint on your project
 	docker run --rm -v $(shell pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint run --deadline=65s $(OUTPUT_OPTIONS)
 
 .PHONY: test
-test:
+test: build
 	@go test -mod vendor -v -race ./...
 
 format:
