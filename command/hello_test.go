@@ -1,7 +1,6 @@
 package command
 
 import (
-	"encoding/json"
 	"testing"
 
 	"github.com/mitchellh/cli"
@@ -18,19 +17,19 @@ func TestHelloWorld(t *testing.T) {
 		{
 			desc: "test simple use case of hello world",
 			code: 0,
-			args: []string{}
-			want: "hello"
+			args: []string{},
+			want: "hello",
 		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			// setup
 			ui := new(cli.MockUi)
-			c := &HelloWorld{UI: ui}
+			c := &HelloWorld{Ui: ui}
 			code := c.Run(tC.args)
 
 			// assert the return code
-			require.Equal(t, tC.code, 0)
+			require.Equal(t, code, tC.code)
 
 			// assert the output of the command
 			got := ui.OutputWriter.String()
@@ -38,4 +37,3 @@ func TestHelloWorld(t *testing.T) {
 		})
 	}
 }
-
