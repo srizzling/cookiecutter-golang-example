@@ -64,6 +64,7 @@ vendor: ## Updates the vendoring directory.
 	GO111MODULE=on go mod tidy
 	GO111MODULE=on go mod vendor
 
-## TODO(): prepare-release - https://github.com/momocow/semantic-release-gitmoji
-#prepare-release:
-
+prepare-release:
+	@npm install semantic-release-gitmoji
+	@npm install @semantic-release/changelog
+	@npx semantic-release --branches=main

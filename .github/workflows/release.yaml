@@ -1,0 +1,45 @@
+# This is probably way to complicated - and I yakshaved but it works :shrug:
+
+name: goreleaser
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  goreleaser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+      - name: Get changelog entry of current version
+        id: changelog_reader
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          version: ${{ steps.tag_name.outputs.current_version }}
+          path: ./CHANGELOG.md
+      - name: Save changelog entry to file
+        id: save_changes
+        run: |
+          export CF=$(mktemp)
+          echo ::set-output name=changesfile::$CF
+          echo "${{ steps.changelog_reader.outputs.changes }}" > $CF
+        shell: bash
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args:
+            release --rm-dist --release-notes ${{ steps.save_changes.outputs.changesfile }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

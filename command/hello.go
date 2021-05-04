@@ -23,12 +23,6 @@ func (c *HelloWorld) Run(args []string) int {
 		return 1
 	}
 
-	if cmdFlags.NArg() != 2 {
-		c.Ui.Error("Error: must provide 2 files")
-		c.Ui.Error("")
-		c.Ui.Error(c.Help())
-		return 1
-	}
 	c.Ui.Output("hello")
 	return 0
 }

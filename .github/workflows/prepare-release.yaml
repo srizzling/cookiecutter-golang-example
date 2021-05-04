@@ -1,0 +1,44 @@
+---
+# The purpose of this workflow is to automate the semantic-release of this software
+# since this project uses gitmoji commits we can use the following plugin as part of
+# to release software with https://github.com/semantic-release/semantic-release
+
+name: Release
+on:
+  push:
+    branches:
+      - main
+    pull_request:
+jobs:
+  release:
+    name: Prepare Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+      - name: Cache Go modules
+        uses: actions/cache@v2.1.5
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Run tests
+        run: |
+          make test
+      - name: Setup Node.js
+        if: success() && startsWith(github.ref, 'refs/heads/main')
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Run prepare release
+        if: success() && startsWith(github.ref, 'refs/heads/main')
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
