@@ -18,7 +18,7 @@ func TestHelloWorld(t *testing.T) {
 			desc: "test simple use case of hello world",
 			code: 0,
 			args: []string{},
-			want: "hello",
+			want: "hello\n",
 		},
 	}
 	for _, tC := range testCases {
