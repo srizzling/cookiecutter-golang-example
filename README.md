@@ -56,6 +56,10 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 See the [open issues](https://github.com/srizzling/mygolangproject/issues) for a list of proposed features (and known issues).
 
+## Releases
+
+Releases are automatically created upon commits landing in main. These will autotrigger new version and release in Github.
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
