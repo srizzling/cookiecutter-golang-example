@@ -39,6 +39,5 @@ jobs:
           node-version: 12
       - name: Run prepare release
         if: success() && startsWith(github.ref, 'refs/heads/main')
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
+        run: |
+          make prepare-release
